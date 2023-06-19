@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         
     },
     cancleButtom:{
-        top: 25,
+        top: 30,
         width: 30,
         left: -160, 
         alignItems: 'center',

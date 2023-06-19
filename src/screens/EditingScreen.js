@@ -277,8 +277,8 @@ export default function RotationScreen(props){
                     height: 692,
                     borderRadius: 30,
                     overflow: 'hidden', // Clip the image when it exceeds the frame
-                    marginTop: -10,
-                    marginBottom: 10,
+                    marginTop: '2.5%',
+                    marginBottom: 0,
                     backgroundColor: colors[ColorValue]}}>
                     <GestureDetector gesture={pinchGesture} simultaneousHandlers={panGesture}>
                         <GestureDetector gesture={panGesture} simultaneousHandlers={pinchGesture}>
@@ -311,7 +311,7 @@ export default function RotationScreen(props){
                 </View>
             </GestureHandlerRootView>
             <View style = {OriginalVisible? (isDarkMode ?styles.toolBackgroundDark:styles.toolBackground) : styles.invisible}></View>
-            <View style={[styles.toolBar, isDarkMode ? GlobalStyle.On_Surface_Disabled_Darker: {backgroundColor: '#dcdcdc'}]}>
+            <View style={[styles.toolBar, backgroundColor=isDarkMode ? GlobalStyle.On_Surface_Disabled_Darker: GlobalStyle.On_Surface_Disabled]}>
                 <Medium_Buttons 
                   onPressFunction={resetHandler}
                   labelArray={{fontSize: 9,  flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0, fontWeight:'bold'}}
@@ -330,8 +330,8 @@ export default function RotationScreen(props){
                 />
                 <Icon_Button
                 onPressFunction={onBackgroundColorHandler}
-                iconChoice={'circle-outline'}
-                iconColor={isDarkMode ? '#F2E7FE' : '#4726B3'}
+                iconChoice={'circle'}
+                iconColor={colors[ColorValue]}
                 />
                 <Medium_Buttons 
                 onPressFunction={doneHandler}
@@ -446,7 +446,8 @@ export default function RotationScreen(props){
                   width: 200, 
                   height: 40, 
                   marginBottom: 20, 
-                  backgroundColor: isDarkMode ? '#383838': '#fff'
+                  //backgroundColor: isDarkMode ? '#383838': '#fff'
+                  
                 }}
                 minimumValue={-90}
                 maximumValue={90}
@@ -469,36 +470,43 @@ export default function RotationScreen(props){
     Container: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'space-evenly',
+      justifyContent: 'center',
       flexDirection: 'column',
     },
     toolBar:{
       zIndex:2,
       flex: 1,
+      position:'absolute',
+      bottom:0,
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignItems: 'center',
       width: '100%',
-      height: '100%'
+      height: '7%'
     },
     header:{
       flex: 1,
+      position:'absolute',
+      top:0,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginTop: 10,
+      marginTop: '6%',
       width: '100%',
       paddingLeft: 10,
       paddingRight: 20,
-      paddingTop: 16,
+      paddingTop: '6%',
     },
     AllImgContainer: {
         flex: 1,
+        position:'absolute',
+        top:76,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
       },
     AllImgFrame: {
+        position:'absolute',
         width: 320.75,
         height: 692,
         borderRadius: 30,
@@ -759,26 +767,26 @@ export default function RotationScreen(props){
       toolBackground: {
         zIndex: 9,
         position:'absolute',
-        backgroundColor:'#dcdcdc',
+        bottom:0,
+        backgroundColor:'#ffffff',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '100%',
-        top:800.5,
-        height: 70
+        height: '7%'
       },
       toolBackgroundDark: {
         zIndex: 9,
         position:'absolute',
+        bottom:0,
         backgroundColor:'#1E1E1E',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
         width: '100%',
-        top:800.5,
-        height: 70
+        height: '7%'
       },
       select: {
         width : 70,

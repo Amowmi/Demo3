@@ -56,7 +56,9 @@ export default StyleSheet.create({
         
         backgroundColor :  '#F2F2F2'
     },
-
+    On_Surface_Disabled_Darker: {
+        backgroundColor :  '#2A2A2A'
+    },
     Global_title: {
         //fontFamily: 'raleway'
     },

@@ -22,7 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function PreviewScreen(){
   const [appState, setAppState] = useState(AppState.currentState);
   const dispatch = useDispatch();
-  const inited = useSelector(state => state.Mode.previewLoadeds);
+  const inited = useSelector(state => state.Mode.previewLoaded);
   
   
   // Call the function to store data
@@ -30,15 +30,49 @@ export default function PreviewScreen(){
 
 useEffect(() => {
   
+  // async function storeDataInStorage() {
+  //   try {
+  //     await AsyncStorage.setItem('previews',  JSON.stringify(PREVIEW));
+  //     // console.log('Data stored successfully');
+  //     // console.log(JSON.stringify(PREVIEW));
+  //   } catch (error) {
+  //     // Handle errors, if any
+  //     //console.log('Error storing data:', error);
+  //   }
+  // }
+  //   // 监听 AppState 的状态变化
+  //   const handleAppStateChange = (nextAppState) => {
+  //     if (appState.match(/inactive|background/) && nextAppState === 'active') {
+  //       // App 从后台或非活动状态切换到活动状态
+  //       // 在这里保存数据到 async storage
+  //       storeDataInStorage();
+  //     } else if (nextAppState === 'background') {
+  //       // App 进入后台状态
+  //       // 在这里保存数据到 async storage
+  //       storeDataInStorage();
+  //     }
+  //     setAppState(nextAppState);
+  //   };
   
-  // try{
-  //   AsyncStorage.setItem(
-  //       'previews',
-  //       JSON.stringify(PREVIEW))
-  //  }catch(error){}
+  //   // 添加 AppState 变化事件监听
+  //   AppState.addEventListener('change', handleAppStateChange);
+  
+  //   // 清除事件监听器
+
+  // }, [appState]);
   async function storeDataInStorage() {
     try {
-      await AsyncStorage.setItem('previews',  JSON.stringify(PREVIEW));
+      await AsyncStorage.setItem('previews',  JSON.stringify(PREVIEW),(error) => {
+        if (error) {
+          // 处理错误
+          console.log('存储数据时出错:', error);
+        } else {
+          // 存储成功
+          //console.log(PREVIEW);
+          console.log('PREVIEW儲存成功');
+          console.log('数据成功存储');
+        }
+      });
       // console.log('Data stored successfully');
       // console.log(JSON.stringify(PREVIEW));
     } catch (error) {
@@ -46,43 +80,30 @@ useEffect(() => {
       //console.log('Error storing data:', error);
     }
   }
-    // 监听 AppState 的状态变化
-    const handleAppStateChange = (nextAppState) => {
-      if (appState.match(/inactive|background/) && nextAppState === 'active') {
-        // App 从后台或非活动状态切换到活动状态
-        // 在这里保存数据到 async storage
-        storeDataInStorage();
-      } else if (nextAppState === 'background') {
-        // App 进入后台状态
-        // 在这里保存数据到 async storage
-        storeDataInStorage();
-      }
-      setAppState(nextAppState);
-    };
-  
-    // 添加 AppState 变化事件监听
-    AppState.addEventListener('change', handleAppStateChange);
-  
-    // 清除事件监听器
-
-  }, [appState]);
+  if(inited == true){
+    storeDataInStorage();
+  }
+  }, [PREVIEW]);
 
   //for store
   useEffect(() => {
     const storedpreviews = async () => {
       try {
-        const data = await AsyncStorage.getItem('previews');
-        // Handle the retrieved data
-        if (data) {
-          // Data exists in async storage
-          //console.log('Retrieved data:', data);
-             dispatch(readstoredPreview(JSON.parse(data)));
-          // Further processing or updating state, if needed
-
-        } else {
-          // Data doesn't exist in async storage
-          //console.log('No data found in async storage');
-        }
+        await AsyncStorage.getItem('previews',(error, value) => {
+          if (error) {
+            // 处理错误
+            console.log('获取数据时出错:', error);
+          } else {
+            if (value !== null) {
+              // 处理获取到的数据
+              dispatch(readstoredPreview(JSON.parse(value)));
+              console.log('获取到PREVIEW的数据:');
+            } else {
+              // 处理数据不存在的情况
+              console.log('数据不存在');
+            }
+          }
+        });
       } catch (error) {
         // Handle errors, if any
         //console.log('Error retrieving data:', error);
@@ -90,8 +111,9 @@ useEffect(() => {
     };
 
     // Call the function to retrieve data during component mount
-    if(inited == false){
-      console.log('GETDATA');
+    console.log('preview state');
+    console.log(inited);
+    if(inited != true){
       storedpreviews();
       dispatch(setpreviewloaded());
     }

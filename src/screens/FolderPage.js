@@ -50,6 +50,7 @@ const divdeToList = (folderList)=>{
 
 
 const FolderPage   = ()=>{
+    var data = '';
     const [appState, setAppState] = useState(AppState.currentState);
     const inited = useSelector(state => state.Mode.folderLoaded);
     const dispatch = useDispatch();
@@ -63,7 +64,14 @@ const FolderPage   = ()=>{
         //console.log('go store\n');
         async function storeDataInStorage() {
             try {
-              await AsyncStorage.setItem('folder',  JSON.stringify(FOLDER));
+              await AsyncStorage.setItem('folder',  JSON.stringify(FOLDER),(error) => {
+                if (error) {
+                  // 处理错误
+                  //console.log('存储数据时出错:', error);
+                } else {
+                  // 存储成功
+                }
+              });
             //   console.log('Data stored successfully');
             //   console.log('folderdata');
             //   console.log(JSON.stringify(FOLDER));
@@ -72,47 +80,56 @@ const FolderPage   = ()=>{
               //console.log('Error storing data:', error);
             }
         }
+        if(inited == true){
+            storeDataInStorage();
+        }
+        
         // console.log('go store hahahaha\n');
         // 监听 AppState 的状态变化
-        const handleAppStateChange = (nextAppState) => {
-          if (appState.match(/inactive|background/) && nextAppState === 'active') {
-            // App 从后台或非活动状态切换到活动状态
-            // 在这里保存数据到 async storage
-            storeDataInStorage();
-          } else if (nextAppState === 'background') {
-            //console.log('inbackground\n');
-            // App 进入后台状态
-            // 在这里保存数据到 async storage
-            storeDataInStorage();
-          }
-          setAppState(nextAppState);
-        };
-        //console.log('write here\n');
+        // const handleAppStateChange = (nextAppState) => {
+        //   if (appState.match(/inactive|background/) && nextAppState === 'active') {
+        //     // App 从后台或非活动状态切换到活动状态
+        //     // 在这里保存数据到 async storage
+        //     storeDataInStorage();
+        //   } else if (nextAppState === 'background') {
+        //     //console.log('inbackground\n');
+        //     // App 进入后台状态
+        //     // 在这里保存数据到 async storage
+        //     storeDataInStorage();
+        //   }
+        //   setAppState(nextAppState);
+        // };
+        // //console.log('write here\n');
       
-        // 添加 AppState 变化事件监听
-        AppState.addEventListener('change', handleAppStateChange);
+        // // 添加 AppState 变化事件监听
+        // AppState.addEventListener('change', handleAppStateChange);
         //console.log('dfosfosos\n');
         // 清除事件监听器
         // return () => {
         //   AppState.removeEventListener('change', handleAppStateChange);
         // };
-      }, [appState]);
+      }, [FOLDER]);
 
     useEffect(() => {
         const storedfolders = async () => {
         try {
-            const data = await AsyncStorage.getItem('folder');
-            // Handle the retrieved data
-            if (data) {
-            // Data exists in async storage
-            //e.log('Retrieved data:', data);
-                dispatch(readstoredFolder(JSON.parse(data)));
-            // Further processing or updating state, if needed
-
-            } else {
-            // Data doesn't exist in async storage
-            //console.log('No data found in async storage');
-            }
+            await AsyncStorage.getItem('folder',(error, value) => {
+                if (error) {
+                  // 处理错误
+                  //console.log('获取数据时出错:', error);
+                } else {
+                  if (value !== null) {
+                    data = value;
+                    // 处理获取到的数据
+                    dispatch(readstoredFolder(JSON.parse(data)));
+                    
+                    //console.log('获取到的数据:', value);
+                  } else {
+                    // 处理数据不存在的情况
+                    //console.log('数据不存在');
+                  }
+                }
+              });
         } catch (error) {
             // Handle errors, if any
             //console.log('Error retrieving data:', error);
@@ -120,9 +137,9 @@ const FolderPage   = ()=>{
         };
 
         // Call the function to retrieve data during component mount
-        if(inited == false){
+        if(inited != true){
             storedfolders();
-            dispatch(setfolderloaded());
+           dispatch(setfolderloaded());
         }
         
     }, []);
