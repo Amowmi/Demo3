@@ -207,11 +207,6 @@ const FolderPage   = ()=>{
                         <Text style={[styles.title, isDarkMode ? GlobalStyle.Primary_Linear_p_light_font : GlobalStyle.Primary_Linear_p_font]}>Folders</Text>
                         <Text style={ isDarkMode ? GlobalStyle.Primary_light_p : styles.recent }>Opened Recently</Text>
                     </View>
-                    <View style={styles.right}>
-                        <Pressable style={[styles.selectbutton,GlobalStyle.Primary_Linear_p]}>
-                            <Text style={styles.buttonfont}>select</Text>
-                        </Pressable>
-                    </View>
                 </View>
                 <SafeAreaView style={styles.files}>
                     <FlatList

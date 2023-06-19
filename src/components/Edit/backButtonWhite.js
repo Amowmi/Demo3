@@ -6,35 +6,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 function BackButton(props) {
     return(
-        <LinearGradient 
-        colors={['#6D6DD6', '#7A5ED5','#884ED3']}
-        style={styles.button}>
+        
         <Appbar.BackAction
             onPress={props.onPress} 
             size={15}
-            iconColor={'white'}
-           
+            {...GlobalStyle.Surface_dark_font}
         />
-        </LinearGradient>
     );
         
 };
-
-const styles = StyleSheet.create({
-    button: {
-        width:25,
-        height:25,
-        borderRadius: 9,
-        marginLeft:15,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonText: {
-        fontSize:10,
-        fontWeight:'bold',
-        color:'#FFFFFF',
-    }
-
-});
 export default BackButton;
 

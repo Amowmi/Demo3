@@ -309,7 +309,7 @@ export default function RotationScreen(props){
                     </View>
                 </View>
             </GestureHandlerRootView>
-            <View style = {OriginalVisible? styles.toolBackground : styles.invisible}></View>
+            <View style = {OriginalVisible? (isDarkMode ?styles.toolBackgroundDark:styles.toolBackground) : styles.invisible}></View>
             <View style={[styles.toolBar, isDarkMode ? GlobalStyle.On_Surface_Disabled_Darker: {backgroundColor: '#dcdcdc'}]}>
                 <Medium_Buttons 
                   onPressFunction={resetHandler}
@@ -765,13 +765,25 @@ export default function RotationScreen(props){
         width: '100%',
         top:800.5,
         height: 70
-        },
-        select: {
-          width : 70,
-          height : 10,
-          marginTop: -9,
-          paddingRight: 30 
-        },
+      },
+      toolBackgroundDark: {
+        zIndex: 9,
+        position:'absolute',
+        backgroundColor:'#1E1E1E',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: '100%',
+        top:800.5,
+        height: 70
+      },
+      select: {
+        width : 70,
+        height : 10,
+        marginTop: -9,
+        paddingRight: 30 
+      },
         goToFolderBtn: {
           justifyContent: 'center',
           height: 30,

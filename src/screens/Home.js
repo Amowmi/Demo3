@@ -1,10 +1,11 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, Pressable, TouchableHighlight } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Pressable, TouchableHighlight, Image } from 'react-native';
 import GlobalStyle from '../utils/GlobalStyle';
 import HomeItem from '../components/HomeItem';
 import { useNavigation ,useRoute} from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurFolder } from '../actions/Actions';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -33,25 +34,22 @@ const Home = () => {
 
     return(
         <View style={[styles.container, isDarkMode ? GlobalStyle.Surface_dark: GlobalStyle.Surface_light]}>
-            <Text style={[
-                GlobalStyle.Global_title,
-                isDarkMode ? GlobalStyle.Primary_Linear_p_light_font : GlobalStyle.Primary_Linear_p_font,
-                styles.text
-            ]}>
-                Wallistic
-            </Text>
+            <Image source={require('../../assets/img/wallistic.png')}  
+                style={styles.image}/>
             <FlatList  
                 horizontal
                 data={HomeList}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item}) => <View style={styles.item}><HomeItem photo ={item} /></View>}
             />
-            <TouchableHighlight onPress={handleFolderPress}   underlayColor="#7D7DFF"
-                style={[GlobalStyle.Primary_Linear_p,
-                styles.button,
-                ]}>
+            <Pressable onPress={handleFolderPress}   >
+                <LinearGradient
+                            colors={['#6D6DD6', '#7A5ED5','#884ED3']}
+                            style={styles.button}
+                >
                 <Text style={[GlobalStyle.Global_font, styles.buttonText]}>Go To Folders</Text>
-            </TouchableHighlight>
+                </LinearGradient>
+            </Pressable>
                 
         </View>
     );
@@ -63,10 +61,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text: {
-        fontSize: 25,
+    image: {
+        height:25,
+        width:135,
         marginTop:50,
-        fontWeight: 'bold',
     },
     item: {
         marginHorizontal:15,
