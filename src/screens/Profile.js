@@ -3,13 +3,15 @@ import { FlatList, StyleSheet, Text, View, Button, Image, Pressable } from 'reac
 import { DataTable } from 'react-native-paper';
 import GlobalStyle from '../utils/GlobalStyle';
 import { useSelector } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const totalPins=120;
+// const totalPins= 0;
 
 const Profile = () => {
     
   const userName = useSelector(state => state.account.userName);
   const isDarkMode = useSelector(state => state.Mode.isDarkMode);
+  const totalPins = useSelector(state => state.Pins.totalPins);
   
   return(
         <View style = {[styles.container,isDarkMode ? GlobalStyle.Surface_dark : GlobalStyle.Surface_light]}>
@@ -21,9 +23,13 @@ const Profile = () => {
             </Text>
             <Image source={require('../../assets/img/profile.jpg')}  
                 style={styles.image}/>
-            <View style={[
-                GlobalStyle.Primary_Linear_p,
-                styles.box]}></View>
+            <View>
+                <LinearGradient
+                        // Background Linear Gradient
+                        colors={['#6D6DD6', '#7A5ED5','#884ED3']}
+                        style={styles.box}
+                    />
+            </View>
             <View style={styles.box}>
                 <Text style={[styles.totalPins,isDarkMode?GlobalStyle.Surface_dark_font:GlobalStyle.Surface_light_font]}>{totalPins}</Text>
                 <Text style={{lineHeight:1}}>&nbsp;</Text>
@@ -47,11 +53,13 @@ const Profile = () => {
                     </DataTable.Cell>
                 </DataTable.Row>
             </DataTable>
-            <Pressable style={[
-                GlobalStyle.Primary_Linear_p,
-                    styles.button,
-                ]}>
+            <Pressable >
+                <LinearGradient
+                            colors={['#6D6DD6', '#7A5ED5','#884ED3']}
+                            style={styles.button}
+                >
                 <Text style={[GlobalStyle.Global_font, styles.buttonText]}>Change password</Text>
+                </LinearGradient>
             </Pressable>    
         </View>
     );

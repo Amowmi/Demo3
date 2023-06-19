@@ -12,7 +12,12 @@ export function setUserFolder(userFolderList){
         userFolderList: userFolderList
     }
 }
-
+/*pins*/
+export function IncrementTotalPins(){
+    return{
+        type: '@PINS/INCREMENT_TOTAL_PINS'
+    }
+}
 
 // export function listPreview(id){
 //     return{
@@ -86,10 +91,21 @@ export function updateRecently(id){
     }
 }
 
+
 export function setCurPreview(url){
     return{
         type: '@PREVIEW/SET_CURRENTPREVIEW',
         url : url
+    }
+}
+export function setfolderloaded(){
+    return{
+        type:'@MODE/SET_FOLDER_LOAD',
+    }
+}
+export function setpreviewloaded(){
+    return{
+        type: '@MODE/SET_PREVIEW_LOAD',
     }
 }
 export function setPreviewMode(previewMode){

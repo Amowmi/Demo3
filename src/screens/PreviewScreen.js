@@ -10,7 +10,7 @@ import GlobalStyle from '../utils/GlobalStyle';
 import { useNavigation } from '@react-navigation/native';
 import { AppState } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { setPreviewMode, addImageToFolder, checkFolderEmpty, updateRecently,readstoredPreview } from '../actions/Actions'
+import { setPreviewMode, addImageToFolder, checkFolderEmpty,setpreviewloaded, updateRecently,readstoredPreview, IncrementTotalPins } from '../actions/Actions'
 import { useSelector } from 'react-redux';
 
 import Dialog from 'react-native-dialog';
@@ -22,76 +22,83 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function PreviewScreen(){
   const [appState, setAppState] = useState(AppState.currentState);
   const dispatch = useDispatch();
+  const inited = useSelector(state => state.Mode.previewLoadeds);
+  
   
   // Call the function to store data
   const PREVIEW = useSelector(state => state.Preview);
 
-// useEffect(() => {
+useEffect(() => {
   
   
-//   // try{
-//   //   AsyncStorage.setItem(
-//   //       'previews',
-//   //       JSON.stringify(PREVIEW))
-//   //  }catch(error){}
-//   async function storeDataInStorage() {
-//     try {
-//       await AsyncStorage.setItem('previews',  JSON.stringify(PREVIEW));
-//       // console.log('Data stored successfully');
-//       // console.log(JSON.stringify(PREVIEW));
-//     } catch (error) {
-//       // Handle errors, if any
-//       //console.log('Error storing data:', error);
-//     }
-//   }
-//     // 监听 AppState 的状态变化
-//     const handleAppStateChange = (nextAppState) => {
-//       if (appState.match(/inactive|background/) && nextAppState === 'active') {
-//         // App 从后台或非活动状态切换到活动状态
-//         // 在这里保存数据到 async storage
-//         storeDataInStorage();
-//       } else if (nextAppState === 'background') {
-//         // App 进入后台状态
-//         // 在这里保存数据到 async storage
-//         storeDataInStorage();
-//       }
-//       setAppState(nextAppState);
-//     };
+  // try{
+  //   AsyncStorage.setItem(
+  //       'previews',
+  //       JSON.stringify(PREVIEW))
+  //  }catch(error){}
+  async function storeDataInStorage() {
+    try {
+      await AsyncStorage.setItem('previews',  JSON.stringify(PREVIEW));
+      // console.log('Data stored successfully');
+      // console.log(JSON.stringify(PREVIEW));
+    } catch (error) {
+      // Handle errors, if any
+      //console.log('Error storing data:', error);
+    }
+  }
+    // 监听 AppState 的状态变化
+    const handleAppStateChange = (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === 'active') {
+        // App 从后台或非活动状态切换到活动状态
+        // 在这里保存数据到 async storage
+        storeDataInStorage();
+      } else if (nextAppState === 'background') {
+        // App 进入后台状态
+        // 在这里保存数据到 async storage
+        storeDataInStorage();
+      }
+      setAppState(nextAppState);
+    };
   
-//     // 添加 AppState 变化事件监听
-//     AppState.addEventListener('change', handleAppStateChange);
+    // 添加 AppState 变化事件监听
+    AppState.addEventListener('change', handleAppStateChange);
   
-//     // 清除事件监听器
+    // 清除事件监听器
 
-//   }, [appState]);
+  }, [appState]);
 
-//   //for store
-//   useEffect(() => {
-//     const storedpreviews = async () => {
-//       try {
-//         const data = await AsyncStorage.getItem('previews');
-//         // Handle the retrieved data
-//         if (data) {
-//           // Data exists in async storage
-//           //console.log('Retrieved data:', data);
-//              dispatch(readstoredPreview(JSON.parse(data)));
-//           // Further processing or updating state, if needed
+  //for store
+  useEffect(() => {
+    const storedpreviews = async () => {
+      try {
+        const data = await AsyncStorage.getItem('previews');
+        // Handle the retrieved data
+        if (data) {
+          // Data exists in async storage
+          //console.log('Retrieved data:', data);
+             dispatch(readstoredPreview(JSON.parse(data)));
+          // Further processing or updating state, if needed
 
-//         } else {
-//           // Data doesn't exist in async storage
-//           //console.log('No data found in async storage');
-//         }
-//       } catch (error) {
-//         // Handle errors, if any
-//         //console.log('Error retrieving data:', error);
-//       }
-//     };
+        } else {
+          // Data doesn't exist in async storage
+          //console.log('No data found in async storage');
+        }
+      } catch (error) {
+        // Handle errors, if any
+        //console.log('Error retrieving data:', error);
+      }
+    };
 
-//     // Call the function to retrieve data during component mount
-//     storedpreviews();
-//   }, []);
+    // Call the function to retrieve data during component mount
+    if(inited == false){
+      console.log('GETDATA');
+      storedpreviews();
+      dispatch(setpreviewloaded());
+    }
+  }, []);
   const currentFolder = useSelector(state => state.Folder.currentFolder);
   const CARD = useSelector(state => state.Preview.previewList[currentFolder]);
+  
   
 
 
@@ -142,7 +149,7 @@ export default function PreviewScreen(){
     handleDialogVisibilityChange(false);
     dispatch(checkFolderEmpty(currentFolder, inputText));
     dispatch(addImageToFolder(currentFolder, inputText));
-
+    dispatch(IncrementTotalPins());
     setInputText('');
   };
   

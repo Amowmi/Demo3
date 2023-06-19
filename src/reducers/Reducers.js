@@ -28,7 +28,20 @@ export function account(state = initUserState, action) {
             return state;
     }
 };
-
+/*Pins*/
+const initTotalPins= {
+    totalPins: 5
+};
+export function Pins(state = initTotalPins, action) {
+    switch (action.type) {
+        case '@PINS/INCREMENT_TOTAL_PINS':
+            return {
+                totalPins: state.totalPins + 1
+            };
+        default:
+            return state;
+    }
+};
 /* Favorite */
 export function favorite(state = [], action) {
     switch (action.type) {
@@ -243,8 +256,9 @@ export function Preview(state = initPreview, action) {
             d += DATE.getMonth() + 1;
             d += ' / ';
             d += DATE.getDate();
-            
+            console.log('ADD_IMAGE_TO_FOLDER');
             newPreviewList[action.folderId].push({loved: false, URL: action.url, date: d, scale_Edit: 1, positionX_Edit: 0, positionY_Edit: 0, isFlipped_Edit: false, distance_Edit: 0, ColorValue_Edit: 8});
+            console.log('ADD_IMAGE_TO_FOLDER_DONE');
             return{
                 ...state,
                 previewList: newPreviewList
@@ -299,7 +313,9 @@ export function Preview(state = initPreview, action) {
 /* Mode */
 const initModeState = {
     isDarkMode: false,
-    previewMode : 'Lock'
+    previewMode : 'Lock',
+    folderLoaded : false,
+    previewLoaded : false,
 };
 
 
@@ -316,6 +332,16 @@ export function Mode(state = initModeState, action) {
                 ...state,
                 previewMode : action.previewMode,
             };
+        case '@MODE/SET_FOLDER_LOAD':
+            return{
+                ...state,
+                folderLoaded : true
+            }
+        case '@MODE/SET_PREVIEW_LOAD':
+            return {
+                ...state,
+                previewLoaded : true
+            }
         default:
             return state;
     }
