@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   tinyLogoOverlayL: {
     position:'absolute',
-    left:0,
+    left:-7.5,
     zIndex: 4,
     width: 166.43,
     height: 360,

@@ -29,12 +29,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    buttonText: {
-        fontSize:10,
-        fontWeight:'bold',
-        color:'#FFFFFF',
-    }
-
 });
 export default BackButton;
 

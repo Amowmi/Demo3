@@ -34,9 +34,8 @@ export default function Tutorial1() {
                 iconChoice={'close-circle-outline'}/>
             </TouchableOpacity>
             </View>
-                <Text style = {[GlobalStyle.Global_title,styles.title,
-                    isDarkMode ? GlobalStyle.Primary_Linear_p_light_font : GlobalStyle.Primary_Linear_p_font]}>
-                    Wallistic</Text>
+            <Image source={require('../../assets/img/wallistic_semibold.png')}  
+                style={styles.title}/>
             <View>
                 <Image  style = {styles.image}source={require('../../assets/Logging/tutorial6.png')}></Image>
             </View>
@@ -88,28 +87,27 @@ const styles = StyleSheet.create({
         width: 30,
         left: -160, 
         alignItems: 'center',
+        justifyContent: 'center',
         height: 30,
     },
     Cancle: {
         textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         color: '#000000',
         fontSize: 22,
     },
-
     title: {
         top: 20,
-        fontSize: 22,
-        margin: 20,
-        fontWeight: 'bold',
-        //漸層
-       // backgroundImage: linear-gradient(180deg, #6D6DD6 0%, #884ED3 100%),
-        
+        margin: 30,
+        height:24,
+        width:120,   
     },
     image:{
         marginTop: 20,
         height: 456,
-        width: 214,
-        borderRadius: 20,
+        width: 210,
+        borderRadius: 28,
     },
     textbox:{
         width: 214,
@@ -134,6 +132,7 @@ const styles = StyleSheet.create({
     create_bottom:{
         width: 100,
         alignItems: 'center',
+        justifyContent: 'center',
         height: 30,
         backgroundColor:'#6D6DD6',
         borderRadius: 20,

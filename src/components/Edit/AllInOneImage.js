@@ -22,7 +22,7 @@ export default function AllInOneImage(props){
   const onTop = useSharedValue(true);
   const verticalPosition = useSharedValue(0);
   if(props.isReset == true){
-    console.log('RESET')
+    //console.log('RESET')
   }
   
   const pinchGesture = Gesture.Pinch()

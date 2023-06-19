@@ -256,9 +256,9 @@ export function Preview(state = initPreview, action) {
             d += DATE.getMonth() + 1;
             d += ' / ';
             d += DATE.getDate();
-            console.log('ADD_IMAGE_TO_FOLDER');
+            //console.log('ADD_IMAGE_TO_FOLDER');
             newPreviewList[action.folderId].push({loved: false, URL: action.url, date: d, scale_Edit: 1, positionX_Edit: 0, positionY_Edit: 0, isFlipped_Edit: false, distance_Edit: 0, ColorValue_Edit: 8});
-            console.log('ADD_IMAGE_TO_FOLDER_DONE');
+            //console.log('ADD_IMAGE_TO_FOLDER_DONE');
             return{
                 ...state,
                 previewList: newPreviewList

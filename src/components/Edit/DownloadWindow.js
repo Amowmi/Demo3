@@ -20,7 +20,7 @@ export default function DownloadWindow(props) {
 
   if(props.isDownload == true){
     DownloadSheet.current.open();
-    console.log('DOWNLOAD');
+    //console.log('DOWNLOAD');
   }
 
   React.useEffect(() => {

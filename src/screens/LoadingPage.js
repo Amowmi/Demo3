@@ -18,7 +18,8 @@ export default function Loading() {
         <View style = {[styles.background,isDarkMode ? GlobalStyle.Surface_dark : GlobalStyle.Surface_light]}>
            <Image style = {styles.image}source={require('../../assets/Logging/wallistic.png')}></Image>
             <View>
-                <Text style = {[isDarkMode ? GlobalStyle.Primary_Linear_p_light_font : GlobalStyle.Primary_Linear_p_font]}>Wallistic</Text>
+                <Image source={require('../../assets/img/wallistic.png')}  
+                style={styles.imageWa}/>
             </View>
             <View >
                 <Text style = {[styles.subtitle2, isDarkMode ? GlobalStyle.Surface_dark_font : GlobalStyle.Surface_light_font]}>provides the most realistic preview {'\n'} of your wallpapers</Text>
@@ -62,6 +63,11 @@ const styles = StyleSheet.create({
         marginTop: 15,
         textAlign: 'center',
     },
+    imageWa: {
+        height:15,
+        width:81,
+        marginTop: 5
+    }
     
 
 });

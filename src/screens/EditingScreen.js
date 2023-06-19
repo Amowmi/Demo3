@@ -205,6 +205,7 @@ export default function RotationScreen(props){
         position.value = 0;
         verticalPosition.value = 0;
         setDistance(0);
+        setColorValue(8);
       };
       const resetHandler= () =>{
           Alert.alert('Reset', 'Are you sure you want to reset?', [
@@ -266,7 +267,7 @@ export default function RotationScreen(props){
                 <Medium_Buttons 
                 
                   onPressFunction={onDownloadHandler} /* Download Button */  
-                  labelArray={{fontSize: 8, flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0}}
+                  labelArray={{fontSize: 9, flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0, fontWeight:'bold'}}
                   title={'Download'}
                   styleArray={{height: 23, width: 60}}
                 />
@@ -313,7 +314,7 @@ export default function RotationScreen(props){
             <View style={[styles.toolBar, isDarkMode ? GlobalStyle.On_Surface_Disabled_Darker: {backgroundColor: '#dcdcdc'}]}>
                 <Medium_Buttons 
                   onPressFunction={resetHandler}
-                  labelArray={{fontSize: 8,  flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0}}
+                  labelArray={{fontSize: 9,  flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0, fontWeight:'bold'}}
                   title={'RESET'}
                   styleArray={{height: 23}}
                 />
@@ -334,7 +335,7 @@ export default function RotationScreen(props){
                 />
                 <Medium_Buttons 
                 onPressFunction={doneHandler}
-                labelArray={{fontSize: 8,  flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0}}
+                labelArray={{fontSize: 9,  flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0, fontWeight:'bold'}}
                 title={'DONE'}
                 styleArray={{height: 23}}
                 />
@@ -377,13 +378,14 @@ export default function RotationScreen(props){
               );
             })}
           </View>
-          <TouchableOpacity
-            style={styles.Colorbtn}
-            onPress={() => {
-                ColorSheet.current.close();
-            }}>
-            <Text style={styles.ColorbtnText}>Confirm</Text>
-          </TouchableOpacity>
+          <Pressable onPress={() => {
+              ColorSheet.current.close();}}>
+                  <LinearGradient
+                        colors={['#6D6DD6', '#7A5ED5','#884ED3']}
+                        style={styles.Colorbtn}>
+                  <Text style={styles.ColorbtnText}>Confirm</Text>
+                </LinearGradient>    
+          </Pressable>
         </View>
       </RBSheet>
         <RBSheet

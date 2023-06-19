@@ -60,7 +60,7 @@ const FolderPage   = ()=>{
       
 
     useEffect(() => {
-        console.log('go store\n');
+        //console.log('go store\n');
         async function storeDataInStorage() {
             try {
               await AsyncStorage.setItem('folder',  JSON.stringify(FOLDER));

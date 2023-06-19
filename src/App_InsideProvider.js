@@ -40,7 +40,7 @@ export default function App_InsideProvider() {
   const isDarkMode = useSelector(state => state.Mode.isDarkMode);  
   return (
       <NavigationContainer theme={isDarkMode?DarkTheme:LightTheme}>
-          <Stack.Navigator initialRouteName="FunctionScreens" >
+          <Stack.Navigator initialRouteName="loginScreens" >
               <Stack.Screen
                 options={{headerShown: false,}}
                 name = 'loginScreens'

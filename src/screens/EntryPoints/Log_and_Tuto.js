@@ -9,7 +9,7 @@ export default function Log_and_Tuto() {
     return (
     
       
-        <Stack.Navigator initialRouteName="Login" >
+        <Stack.Navigator initialRouteName="Loading" >
 
           <Stack.Screen name="Login" component={Login} options={{headerShown: false,}}/> 
           <Stack.Screen name="Logging" component={Logging} options={{headerShown: false,}}/>

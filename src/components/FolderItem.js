@@ -37,10 +37,10 @@ const FolderItem   = (props)=>{
             <View style={styles.container}>
     
                 <ImageBackground source={{uri: image}} resizeMode="cover" style={styles.image}>
-                    <Text style={[GlobalStyle.Primary_Linear_p,
-                                styles.text]}>
+                <Text style={[props.data.id == 0 ? GlobalStyle.Primary_Linear_p : GlobalStyle.Surface_light, props.data.id == 0 ? styles.text :styles.textPurple
+                                ]}>
                             {floderName}
-                    </Text>
+                </Text>
                 </ImageBackground>
             </View>
             </TouchableOpacity>
@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
         
     },
     image: {
+        
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
       flex: 1,
       justifyContent: 'flex-end',
       backgroundColor:'#DDD',
@@ -80,8 +83,17 @@ const styles = StyleSheet.create({
       lineHeight: 41,
       fontWeight: 'bold',
       textAlign: 'center',
-      opacity:0.9
+      opacity:0.9,
     },
+    textPurple: {
+        backgroundColor:'#F9F9F9',
+      color: '#4726B3',
+      fontSize: 13,
+      lineHeight: 41,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      opacity:0.9,
+    }
   });
   
 export default FolderItem
