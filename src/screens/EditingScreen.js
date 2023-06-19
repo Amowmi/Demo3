@@ -11,7 +11,7 @@ import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import {setPreviewMode, SetEdit, ResetEdit} from '../actions/Actions';
 import SelectMode from '../components/Preview/Icons/SelectMode';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -255,11 +255,13 @@ export default function RotationScreen(props){
         </Modal>
             <View style={[styles.Container, {backgroundColor: isDarkMode ? '#1d1d1d': '#fff'}]}>
               <View style={styles.header}>
-                <Edit_Header onPress={() =>  
-                  navigation.navigate('PreviewScreen')} /* Back Button */  
-                  color={isDarkMode ? '#F2E7FE' : '#4726B3'}/>  
+                <View style={{width: 80}}>
+                  <Edit_Header onPress={() =>  
+                      navigation.navigate('PreviewScreen')} /* Back Button */  
+                      color={isDarkMode ? '#F2E7FE' : '#4726B3'}/> 
+                </View>
                 <Text style={styles.select}>
-                  <SelectMode PressHandler = {OnSelectPress}/>
+                      <SelectMode PressHandler = {OnSelectPress}/>
                 </Text>
                 <Medium_Buttons 
                 
@@ -397,25 +399,31 @@ export default function RotationScreen(props){
                 />
                 <View style={styles.DownloadSide}>
                     <Text style={[styles.DownloadTitle, {color: isDarkMode ? '#F2E7FE':'#4726B3'}]}>{'Image downloaded to \nyour device!'} </Text>
-                    <Medium_Buttons 
-                        onPressFunction={handleFolderPress}
-                        labelArray={{fontSize: 8, flex: -1, lineHeight: 22, marginHorizontal: 0, paddingVertical: 0, marginVertical: 0, paddingHorizontal: 0}}
-                        title={'Go To Folders'}
-                        styleArray={{height: 23, width: 90, marginHorizontal: 10}}
-                    />
+                    <Pressable onPress={handleFolderPress}>
+                      <LinearGradient
+                            colors={['#6D6DD6', '#7A5ED5','#884ED3']}
+                            style={styles.goToFolderBtn}
+                      >
+                      <Text style={[GlobalStyle.Global_font, styles.DownloadBtnText]}>Go to folder</Text>
+                    </LinearGradient>
+                      
+                    </Pressable>
                 </View>
             </View>
-            <View style={styles.DownloadIcons}>
-                <Text style={{fontSize: 30}}>App icons</Text>
-            </View>
-            <TouchableOpacity
-                style={[styles.DownloadBtn, {backgroundColor: isDarkMode ? '#B5C1BE' : '#fff'}]}
-            >
+            <LinearGradient
+            colors={['#6D6DD6', '#7A5ED5','#884ED3']}
+            style={styles.DownloadBtn}>
+            <TouchableOpacity>
+              
                 <Icon_Button
                 onPressFunction={handleHomerPress}
                 iconChoice={'home'}
+                iconColor={'white'}
                 />
+              
             </TouchableOpacity>
+            </LinearGradient>
+            
             </View>
         </RBSheet>
 
@@ -540,7 +548,8 @@ export default function RotationScreen(props){
         borderRadius: 30,
         padding: 14,
         marginTop: 30,
-        height: 40
+        height: 40,
+        bottom: 16
       },
       DownloadBtnText: {
         fontSize: 16,
@@ -552,6 +561,9 @@ export default function RotationScreen(props){
         borderTopRightRadius: 10,
         marginBottom: 0,
         paddingBottom: 0,
+        position: 'absolute',
+        bottom: -20,
+        height: 300
       },
       DownlaodImg: {
         width: '30%',
@@ -757,32 +769,16 @@ export default function RotationScreen(props){
         select: {
           width : 70,
           height : 10,
-          position : 'absolute',
-          top: 48,
-          left: 160,
+          marginTop: -9,
+          paddingRight: 30 
+        },
+        goToFolderBtn: {
+          justifyContent: 'center',
+          height: 30,
+          width: 140
+          ,
+          alignItems: 'center',
+          borderRadius: 20,
         }
 
   });
-
-  /*
-  <View style={styles.textCon}>
-                <Text style={{color: 'black'}}> 0</Text>
-                <Text style={{color: 'black'}}>
-                    {distance + ' current'}
-                </Text>
-                <Text style={{color: 'black'}}> 10 </Text>
-            </View>
-
-  */
- //, {backgroundColor: isDarkMode ? '#383838' : '#fff'}
-
- /*
-
- <View style={styles.overlayView} >
-                      <Image 
-                        source={require('../../assets/img/lock_Bottom.png')}
-                        style={styles.overlayImage_lock}
-
-                      />
-                    </View>
-  */
